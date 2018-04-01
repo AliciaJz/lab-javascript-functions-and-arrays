@@ -6,11 +6,10 @@ function maxOfTwoNumbers(num1, num2){
   }else if (num1<num2){
     return num2;
   }else if(num1===num2){
-    return 4;
+    return num1;
   }
 }
 // Finding Longest Word
-function findLongestWord(){
   var words = [
     'mystery',
     'brother',
@@ -20,42 +19,50 @@ function findLongestWord(){
     'orchard',
     'crackpot'
   ];
-  
-  var longest="";
-  for (var i=0; i<words.length; i++){
-    if (longest.length<words[i].length){
-      longest = words[i];
-    }
+
+  function findLongestWord(array){
+if (array.length ===0){
+  return;
+}
+var ans = "";
+array.forEach(function(element){
+  if (element.length>ans.length){
+    ans = element;
   }
-  console.log(longest);
+});
+return ans;
 }
 
-findLongestWord();
 // Calculating a Sum
-
 var numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
 function sumArray(array){
-  if(array.length===0){
-    return;
-  }
-
-var total = 0;
-
-for (var i=0; i<array.length; i++){
-  total = total + array[i];
+  var suma=0;
+  array.forEach(function(element){
+    suma+=element;
+  });
+  return suma;
 }
-return total;
-}
-
-console.log(sumArray(numbers));
 
 // Calculate the Average
-function averageNumbers(){
 var numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
+
+function sum(array) {
+  for (var sum=0, i=0; i < array.length; i++) {
+    sum += array[i];
+  }
+  return sum;
 }
+
+function averageNumbers(array) {
+  if (array.length === 0) { 
+    return;
+  }
+  return sum(array) / array.length;
+}
+averageNumbers(numbersAvg);
+
 // Array of Strings
-function averageWordLength(){
 var wordsArr = [
   'seat',
   'correspond',
@@ -68,10 +75,20 @@ var wordsArr = [
   'fuel',
   'palace'
 ];
+
+function averageWordLength(array){
+  if (array.length === 0){
+    return;
+  }
+  var suma = 0;
+  array.forEach(function(element){
+    suma+=element.length;
+  });
+return suma/array.length;
 }
 
 // Unique Arrays
-function uniquifyArray(){
+
 var wordsUnique = [
   'crab',
   'poison',
@@ -85,10 +102,23 @@ var wordsUnique = [
   'simple',
   'bring'
 ];
+
+function uniquifyArray(array){
+  if (array.length === 0){
+    return;
+  }
+  for (var i=0; i<array.length; i++){
+    for (var j=i+1; j<array.length; j++){
+      if( array[i]===array[j]){
+        array.splice(j,1);
+        j--;
+      }
+    }
+  }
+  return array;
 }
 
 // Finding Elements
-function doesWordExist(){
 var wordsFind = [
   'machine',
   'subset',
@@ -99,10 +129,20 @@ var wordsFind = [
   'truth',
   'disobedience'
 ];
+
+function doesWordExist (array, word){
+  if (array.length === 0){
+    return false;
+  }
+  for (var i=0; i<array.length; i++){
+    if(array[i] === word){
+      return true;
+    }
+  }
+  return false;
 }
 
 // Counting Repetion
-function howManyTimes(){
 var wordsCount = [
   'machine',
   'matter',
@@ -116,9 +156,21 @@ var wordsCount = [
   'disobedience',
   'matter'
 ];
+
+function howManyTimes (array, word){
+  if (array.length===0){
+    return false;
+  }
+  var count=0;
+  for (var i=0; i<array.length; i++){
+    if(array[i]===word){
+      count++;
+    }
+  }
+  return count;
 }
+
 // Bonus Quest
-function greatestProduct(){
 var matrix = [
   [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
   [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
@@ -141,4 +193,29 @@ var matrix = [
   [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
+
+function greatestProduct(array){
+  if (array.length===0){
+    return false;
+  }
+  var max=0;
+  for (var i=0; i<array.length; i++){
+    for (var j=0; j<array[i].length-3; j++){
+        //Hasta aqui itera cada numero en cada row
+        if (array[i][j]*array[i][j+1]*array[i][j+2]*array[i][j+3]>max){
+          max=array[i][j]*array[i][j+1]*array[i][j+2]*array[i][j+3];
+          //Multiplica los 4 adjacentes, y si es mayor al anterior lo reemplaza
+        }
+    }
+  }
+  for (var k=0; k<array.length-3; k++){
+    for (var l=0; l<array[k].length; l++){
+        //Hasta aqui itera cada numero en cada row
+        if (array[k][l]*array[k+1][l]*array[k+2][l]*array[k+3][l]>max){
+          max=array[k][l]*array[k+1][l]*array[k+2][l]*array[k+3][l];
+          //Multiplica los 4 adjacentes, y si es mayor al anterior lo reemplaza
+        }
+    }
+  }
+  return max;
 }
